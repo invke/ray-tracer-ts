@@ -15,5 +15,8 @@ module.exports = {
   transform: {
     '^.+\\.ts$': 'ts-jest'
   },
+  setupFilesAfterEnv: [
+    '<rootDir>/spec/support/customMatchers.ts'
+  ],
   verbose: true
 }
