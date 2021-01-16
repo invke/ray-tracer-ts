@@ -24,8 +24,8 @@
     "ts-jest": "^26.4.4"
   },
   "scripts": {
-    "test": "yarn",
-    "lint": "yarn eslint --color 'src/**/*.ts' 'spec/**/*.ts'",
-    "trace": "yarn ts-node src/main.ts"
+    "test": "jest",
+    "lint": "eslint --color 'src/**/*.ts' 'spec/**/*.ts'",
+    "trace": "ts-node src/main.ts"
   }
 }
