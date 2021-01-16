@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   },
   "devDependencies": {
@@ -16,6 +17,7 @@
     "ts-jest": "^26.4.4"
   },
   "scripts": {
-    "test": "yarn"
+    "test": "yarn",
+    "trace": "yarn ts-node src/main.ts"
   }
 }
