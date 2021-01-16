@@ -6,35 +6,35 @@ export default class Tuple {
   readonly z: number
   readonly w: number
 
-  static ZeroPoint () { return Tuple.Point(0, 0, 0) }
-  static Point (x: number, y: number, z: number) {
+  static ZeroPoint (): Tuple { return Tuple.Point(0, 0, 0) }
+  static Point (x: number, y: number, z: number): Tuple {
     return new Tuple(x, y, z, 1)
   }
 
-  static ZeroVector () { return Tuple.Vector(0, 0, 0) }
-  static Vector (x: number, y: number, z: number) {
+  static ZeroVector (): Tuple { return Tuple.Vector(0, 0, 0) }
+  static Vector (x: number, y: number, z: number): Tuple {
     return new Tuple(x, y, z, 0)
   }
 
-  constructor (x: number, y: number, z: number, w: number) {
+  constructor (x: number = 0, y: number = 0, z: number = 0, w: number = 0) {
     this.x = x
     this.y = y
     this.z = z
     this.w = w
   }
 
-  get isPoint () { return this.w === 1.0 }
+  get isPoint (): boolean { return this.w === 1.0 }
 
-  get isVector () { return !this.isPoint }
+  get isVector (): boolean { return !this.isPoint }
 
-  get magnitude () {
+  get magnitude (): number {
     return Math.sqrt(
       Math.pow(this.x, 2) + Math.pow(this.y, 2) +
       Math.pow(this.z, 2) + Math.pow(this.w, 2)
     )
   }
 
-  equals (anotherTuple: Tuple) {
+  equals (anotherTuple: this): boolean {
     return (
       Math.abs(this.x - anotherTuple.x) < EPSILON &&
       Math.abs(this.y - anotherTuple.y) < EPSILON &&
@@ -43,31 +43,33 @@ export default class Tuple {
     )
   }
 
-  add (anotherTuple: Tuple) {
-    return new Tuple(
+  add (anotherTuple: this): this {
+    return new (<any> this.constructor)(
       this.x + anotherTuple.x, this.y + anotherTuple.y,
       this.z + anotherTuple.z, this.w + anotherTuple.w
     )
   }
 
-  subtract (anotherTuple: Tuple) {
-    return new Tuple(
+  subtract (anotherTuple: this): this {
+    return new (<any> this.constructor)(
       this.x - anotherTuple.x, this.y - anotherTuple.y,
       this.z - anotherTuple.z, this.w - anotherTuple.w
     )
   }
 
-  negate () { return Tuple.ZeroVector().subtract(this) }
+  negate (): this {
+    return new (<any> this.constructor)().subtract(this)
+  }
 
-  multiply (scalar: number) {
-    return new Tuple(
+  multiply (scalar: number): this {
+    return new (<any> this.constructor)(
       this.x * scalar, this.y * scalar,
       this.z * scalar, this.w * scalar
     )
   }
 
-  normalize () {
-    return new Tuple(
+  normalize (): this {
+    return new (<any> this.constructor)(
       this.x / this.magnitude,
       this.y / this.magnitude,
       this.z / this.magnitude,
@@ -75,7 +77,7 @@ export default class Tuple {
     )
   }
 
-  dot (anotherTuple: Tuple) {
+  dot (anotherTuple: this): number {
     return (
       this.x * anotherTuple.x +
       this.y * anotherTuple.y +
@@ -84,11 +86,12 @@ export default class Tuple {
     )
   }
 
-  cross (anotherTuple: Tuple) {
-    return Tuple.Vector(
+  cross (anotherTuple: this): this {
+    return new (<any> this.constructor)(
       this.y * anotherTuple.z - this.z * anotherTuple.y,
       this.z * anotherTuple.x - this.x * anotherTuple.z,
-      this.x * anotherTuple.y - this.y * anotherTuple.x
+      this.x * anotherTuple.y - this.y * anotherTuple.x,
+      0
     )
   }
 }
