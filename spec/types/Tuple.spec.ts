@@ -135,7 +135,7 @@ describe('Tuple', () => {
     describe('subtracting a vector from the zero vector', () => {
       beforeEach(() => {
         tuple = Tuple.Point(1, -2, 3)
-        result = Tuple.ZeroVector().subtract(tuple)
+        result = Tuple.Vector().subtract(tuple)
       })
 
       it('returns a vector', () => {

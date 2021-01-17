@@ -1,4 +1,4 @@
-import { EPSILON } from 'parameters'
+import { approx } from 'functions/math'
 
 export default class Tuple {
   readonly x: number
@@ -6,13 +6,11 @@ export default class Tuple {
   readonly z: number
   readonly w: number
 
-  static ZeroPoint (): Tuple { return Tuple.Point(0, 0, 0) }
-  static Point (x: number, y: number, z: number): Tuple {
+  static Point (x: number = 0, y: number = 0, z: number = 0): Tuple {
     return new Tuple(x, y, z, 1)
   }
 
-  static ZeroVector (): Tuple { return Tuple.Vector(0, 0, 0) }
-  static Vector (x: number, y: number, z: number): Tuple {
+  static Vector (x: number = 0, y: number = 0, z: number = 0): Tuple {
     return new Tuple(x, y, z, 0)
   }
 
@@ -36,11 +34,10 @@ export default class Tuple {
 
   equals (anotherTuple: this): boolean {
     return (
-      Math.abs(this.x - anotherTuple.x) < EPSILON &&
-      Math.abs(this.y - anotherTuple.y) < EPSILON &&
-      Math.abs(this.z - anotherTuple.z) < EPSILON &&
-      Math.abs(this.w - anotherTuple.w) < EPSILON
-    )
+      approx(this.x, anotherTuple.x) &&
+      approx(this.y, anotherTuple.y) &&
+      approx(this.z, anotherTuple.z) &&
+      approx(this.w, anotherTuple.w))
   }
 
   add (anotherTuple: this): this {
@@ -72,8 +69,7 @@ export default class Tuple {
     return new (<any> this.constructor)(
       this.x / this.magnitude,
       this.y / this.magnitude,
-      this.z / this.magnitude,
-      this.w / this.magnitude
+      this.z / this.magnitude
     )
   }
 
@@ -81,8 +77,7 @@ export default class Tuple {
     return (
       this.x * anotherTuple.x +
       this.y * anotherTuple.y +
-      this.z * anotherTuple.z +
-      this.w * anotherTuple.w
+      this.z * anotherTuple.z
     )
   }
 
@@ -90,8 +85,7 @@ export default class Tuple {
     return new (<any> this.constructor)(
       this.y * anotherTuple.z - this.z * anotherTuple.y,
       this.z * anotherTuple.x - this.x * anotherTuple.z,
-      this.x * anotherTuple.y - this.y * anotherTuple.x,
-      0
+      this.x * anotherTuple.y - this.y * anotherTuple.x
     )
   }
 }

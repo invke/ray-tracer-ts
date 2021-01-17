@@ -1,10 +1,6 @@
 import Tuple from './Tuple'
 
 export default class Colour extends Tuple {
-  static FromTuple (tuple: Tuple) {
-    return new Colour(tuple.x, tuple.y, tuple.z)
-  }
-
   static Black () { return new Colour(0, 0, 0) }
   static White () { return new Colour(1, 1, 1) }
   static Red () { return new Colour(1, 0, 0) }
@@ -12,7 +8,7 @@ export default class Colour extends Tuple {
   static Blue () { return new Colour(0, 0, 1) }
 
   constructor (r: number, g: number, b: number) {
-    super(r, g, b, 0)
+    super(r, g, b, 1)
   }
 
   get r (): number { return this.x }
