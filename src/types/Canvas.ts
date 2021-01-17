@@ -22,7 +22,12 @@ export default class Canvas {
 
   getPixel (x: number, y: number) { return this.pixels[x][y] }
 
-  setPixel (x: number, y: number, colour: Colour) { this.pixels[x][y] = colour }
+  setPixel (x: number, y: number, colour: Colour) {
+    if (x < 0 || x >= this.pixels.length) return
+    if (y < 0 || y >= this.pixels[x].length) return
+
+    this.pixels[x][y] = colour
+  }
 
   // toPpm () {
   //   const ppmSerializer = new PpmSerializer(this)
