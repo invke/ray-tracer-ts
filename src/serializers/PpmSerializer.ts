@@ -3,19 +3,20 @@ import heredoc from 'heredocument'
 
 import Canvas from 'types/Canvas'
 import Colour from 'types/Colour'
+import Serializer from './Serializer'
 
 const MAXIMUM_LINE_LENGTH = 70
 
-export default class PpmSerializer {
+export default class PpmSerializer implements Serializer {
   canvas: Canvas
   colourSpace: number
 
-  constructor (canvas: Canvas, colourSpace: number = 255) {
-    this.canvas = canvas
+  constructor (colourSpace: number = 255) {
     this.colourSpace = colourSpace
   }
 
-  render () {
+  render (canvas: Canvas): string {
+    this.canvas = canvas
     return `${this.header()}\n${this.body()}\n`
   }
 

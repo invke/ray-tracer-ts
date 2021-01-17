@@ -15,14 +15,14 @@ describe('PpmSerializer', () => {
 
     describe('with a small canvas', () => {
       beforeEach(() => {
+        serializer = new PpmSerializer()
+
         const canvas = new Canvas(5, 3)
         canvas.setPixel(0, 0, new Colour(1.5, 0, 0))
         canvas.setPixel(2, 1, new Colour(0, 0.5, 0))
         canvas.setPixel(4, 2, new Colour(-0.5, 0, 1))
+        ppmString = serializer.render(canvas)
 
-        serializer = new PpmSerializer(canvas)
-
-        ppmString = serializer.render()
         const ppmLines = ppmString.split('\n')
         ppmHeader = ppmLines.slice(0, 3).join('\n')
         ppmBody = ppmLines.slice(3).join('\n')
@@ -52,10 +52,11 @@ describe('PpmSerializer', () => {
 
     describe('with a wide canvas', () => {
       beforeEach(() => {
-        const canvas = new Canvas(10, 2, new Colour(1, 0.8, 0.6))
-        serializer = new PpmSerializer(canvas)
+        serializer = new PpmSerializer()
 
-        ppmString = serializer.render()
+        const canvas = new Canvas(10, 2, new Colour(1, 0.8, 0.6))
+        ppmString = serializer.render(canvas)
+
         const ppmLines = ppmString.split('\n')
         ppmBody = ppmLines.slice(3).join('\n')
       })
